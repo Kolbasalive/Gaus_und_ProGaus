@@ -138,6 +138,7 @@ class MyMatrix {
         return Math.abs(max);
     }
 
+    /** Вывод и подсчёт итоговых значений для Гаусса с выбором гласного элемента */
     public static double[] getValuesMain(double[][] matrix, int[] vector){
 
         double[] vectors = new double[matrix.length];
@@ -155,7 +156,7 @@ class MyMatrix {
         return vectors;
     }
 
-    /** Вывод значения */
+    /** Вывод и подсчёт итоговых значений для Гаусса */
     public static double[] getValues(double[][] matrix){
 
         double[] solution = backSubstitution(matrix);
@@ -168,6 +169,7 @@ class MyMatrix {
         return solution;
     }
 
+    /** Вывод матрицы в консоль */
     public static void printMatrix(double[][] matrix, int n){
         textMatrix(n);
 
@@ -185,6 +187,7 @@ class MyMatrix {
 
         System.out.println();
     }
+
 
     public static void textMatrix(int n){
         if (n == -1){
