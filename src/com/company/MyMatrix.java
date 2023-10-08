@@ -1,6 +1,8 @@
 package com.company;
 
 class MyMatrix {
+    /** count - округление квадратных корней с машинной точностью,
+     *  с 2-мя, с 4-мя, с 6-ю, с 10-ю, знаками после запятой соответственно*/
     static int[] count = new int[]{-1,2,4,6,10};
 
     public static void main(String[] args) {
