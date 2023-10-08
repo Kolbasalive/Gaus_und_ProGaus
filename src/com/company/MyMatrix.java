@@ -41,8 +41,7 @@ class MyMatrix {
                 {0, 1+Math.sqrt(2), -((Math.sqrt(3)) / 2), 1 + (1 / Math.sqrt(2)), 0.08},
                 {6, 2*Math.sqrt(2), 0, 2, 0.28},
                 {(-3)/2.0, 1, -((Math.sqrt(3)) / 2), 1 / Math.sqrt(2) , 0.06}};
-        else
-        return new double[][]{{3, 3 * sqrt(2, n), ((-1) / 3.0), 0.25, 0.23},
+        else return new double[][]{{3, 3 * sqrt(2, n), ((-1) / 3.0), 0.25, 0.23},
                 {0, 1 + sqrt(2, n), (-sqrt(3, n)) / 2, 1 + (1 / sqrt(2, n)), 0.08},
                 {6, 2 * sqrt(2, n), 0, 2, 0.28},
                 {(-3)/2.0, 1, (-sqrt(3, n)) / 2, 1 / sqrt(2, n) , 0.06}};
@@ -50,13 +49,12 @@ class MyMatrix {
 
     /** первое значение - само число, второе - количество знаков после запятой('-1' - машинная точность) */
     public static double sqrt(double a, int n){
-        a = Math.sqrt(a);
-        return (Math.round(a * Math.pow(10,n)) / Math.pow(10,n));
+        return (Math.round(Math.sqrt(a) * Math.pow(10,n)) / Math.pow(10,n));
     }
 
+    /** Реализация метода Гаусса с выбором главного элемента */
     public static void gaussMain(double[][] matrix,int[] vector) {
         for (int k = 0; k < matrix.length; k++) {
-
             int maxRow = getMax(matrix, k);
             swapColumns(matrix, k, maxRow, vector);
 
@@ -64,7 +62,7 @@ class MyMatrix {
         }
     }
 
-    /** Реализация обычного метода Гаусса*/
+    /** Реализация метода Гаусса*/
     public static void gauss(double[][] matrix, int k){
         for (int i = k + 1; i < matrix.length; i++) {
             double factor = matrix[i][k] / matrix[k][k];
@@ -77,13 +75,11 @@ class MyMatrix {
     /** Возвращает наибольший элемент в строке */
     public static int getMax(double[][] matrix, int k){
         int maxRow = k;
-
         for (int i = k + 1; i < matrix.length; i++) {
             if (Math.abs(matrix[k][i]) > Math.abs(matrix[k][maxRow])) {
                 maxRow = i;
             }
         }
-
         return maxRow;
     }
 
@@ -111,7 +107,6 @@ class MyMatrix {
             }
             solution[i] = (matrix[i][n] - sum) / matrix[i][i];
         }
-
         return solution;
     }
 
@@ -140,9 +135,9 @@ class MyMatrix {
         return Math.abs(max);
     }
 
-    /** Вывод и подсчёт итоговых значений для Гаусса с выбором гласного элемента */
+    /** Вывод и подсчёт итоговых значений для Гаусса с выбором гласного элемента
+     * (второе значение - вектор перестановки) */
     public static double[] getValuesMain(double[][] matrix, int[] vector){
-
         double[] vectors = new double[matrix.length];
         double[] solution = backSubstitution(matrix);
 
@@ -153,21 +148,20 @@ class MyMatrix {
         for (int i = 0; i < matrix.length; i++) {
             System.out.println("x" + i + " = " + vectors[i]);
         }
-
         System.out.println();
+
         return vectors;
     }
 
-    /** Вывод и подсчёт итоговых значений для Гаусса */
+    /** Вывод и подсчёт итоговых значений для метода Гаусса */
     public static double[] getValues(double[][] matrix){
-
         double[] solution = backSubstitution(matrix);
 
         for (int i = 0; i < matrix.length; i++) {
             System.out.println("x" + i + " = " + solution[i]);
         }
-
         System.out.println();
+
         return solution;
     }
 
@@ -186,26 +180,17 @@ class MyMatrix {
             }
             System.out.println(sb.toString().trim());
         }
-
         System.out.println();
     }
 
-
     public static void textMatrix(int n){
-        if (n == -1){
-            System.out.println("Матрица, в которой квадратные корни подсчитаны с машинной точностью: ");
-        }else {
-            System.out.println("Матрица, в которой квадратные корни подсчитаны с " + n + " знаков после запятой: ");
-        }
+        if (n == -1) System.out.println("Матрица, в которой квадратные корни подсчитаны с машинной точностью: ");
+        else System.out.println("Матрица, в которой квадратные корни подсчитаны с " + n + " знаков после запятой: ");
     }
 
     public static void textSlay(int n){
-        if (n == -1) {
-            System.out.println("Решение СЛАУ, в которой квадратные корни подсчитаны с машинной точностью: ");
-        }else {
-            System.out.println("Решение СЛАУ, с округлением квадратных корней до " + n + " знаков после запятой: ");
-
-        }
+        if (n == -1) System.out.println("Решение СЛАУ, в которой квадратные корни подсчитаны с машинной точностью: ");
+        else System.out.println("Решение СЛАУ, с округлением квадратных корней до " + n + " знаков после запятой: ");
     }
 
 }
