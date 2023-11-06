@@ -36,6 +36,7 @@ class MyMatrix {
             printMatrix(array,count[i]);
             textSlay(count[i]);
             discrepancy(init(count[i]),getValues(array), count[i]);
+
         }
     }
 
