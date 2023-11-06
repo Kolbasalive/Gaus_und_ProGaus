@@ -9,21 +9,25 @@ class MyMatrix {
         System.out.println();
         double[][] array;
         System.out.println("Метод Гаусса: ");
-        for (int i = 0; i < count.length; i++) {
+        array = init(count[0]);
+        printMatrix(array,count[0]);
+        for (int i = 1; i < count.length; i++) {
 
             int[] vector = new int[]{0,1,2,3};
 
             array = init(count[i]);
+            roundToNDecimal(array, count[i]);
             printMatrix(array,count[i]);
             gaussMain(array,vector);
 
             textSlay(count[i]);
-            discrepancy(init(count[i]),getValuesMain(array,vector));
+            discrepancy(init(count[i]),getValuesMain(array,vector), count[i]);
         }
 
         System.out.println("Метод Гаусса с выбором главного элемента: ");
-        for (int i = 0; i < count.length; i++) {
+        for (int i = 1; i < count.length; i++) {
             array = init(count[i]);
+            roundToNDecimal(array, count[i]);
 
             for (int k = 0; k < array.length; k++) {
                 gauss(array, k);
@@ -31,7 +35,19 @@ class MyMatrix {
 
             printMatrix(array,count[i]);
             textSlay(count[i]);
-            discrepancy(init(count[i]),getValues(array));
+            discrepancy(init(count[i]),getValues(array), count[i]);
+        }
+    }
+
+    /** Округление элементов в матрице до n-знаков после запятой*/
+    public static void roundToNDecimal(double[][] number, int n) {
+        for (int i = 0; i < number.length; i++) {
+            for (int j = 0; j < number[i].length; j++) {
+                if (n == -1){
+                    number[i][j] = Math.round(number[i][j]  *  Math.pow(10, 15)) / Math.pow(10, 15);
+                }else
+                number[i][j] = Math.round(number[i][j]  *  Math.pow(10, n)) / Math.pow(10, n);
+            }
         }
     }
 
@@ -111,7 +127,7 @@ class MyMatrix {
     }
 
     /** Вывод и подсчёт невязки */
-    public static void discrepancy(double[][] matrix,double[] a){
+    public static void discrepancy(double[][] matrix,double[] a, int n){
         System.out.println("Невязка: ");
         double[] x = new double[4];
         for (int j = 0; j < matrix.length; j++) {
@@ -119,7 +135,7 @@ class MyMatrix {
                     matrix[j][1] * a[1] + matrix[j][2] * a[2] +
                     matrix[j][3] * a[3]);
         }
-        System.out.println(getMaxDouble(x));
+        System.out.printf("%.15f ",getMaxDouble(x));
         System.out.println();
         System.out.println();
     }
@@ -172,10 +188,15 @@ class MyMatrix {
         for (int i = 0; i < matrix.length; i++) {
             StringBuilder sb = new StringBuilder();
             for (int j = 0; j < matrix[i].length; j++) {
+                String s;
+                if (n == -1)
+                     s = "%." + 15 + "f ";
+                else
+                    s = "%." + n + "f ";
                 if (matrix[i][j] < 0) {
-                    sb.append(String.format("%.15f  ", matrix[i][j]));
+                    sb.append(String.format(s, matrix[i][j]));
                 }else{
-                    sb.append(String.format("%.15f   ", matrix[i][j]));
+                    sb.append(String.format(s+" ", matrix[i][j]));
                 }
             }
             System.out.println(sb.toString().trim());
@@ -192,5 +213,4 @@ class MyMatrix {
         if (n == -1) System.out.println("Решение СЛАУ, в которой квадратные корни подсчитаны с машинной точностью: ");
         else System.out.println("Решение СЛАУ, с округлением квадратных корней до " + n + " знаков после запятой: ");
     }
-
 }
